@@ -1,12 +1,14 @@
-# Shipit
+# Shipr
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/shipitjs/shipit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/shipitjs/shipit.svg?branch=master)](https://travis-ci.org/shipitjs/shipit)
-[![Dependency Status](https://david-dm.org/shipitjs/shipit.svg?theme=shields.io)](https://david-dm.org/shipitjs/shipit)
-[![devDependency Status](https://david-dm.org/shipitjs/shipit/dev-status.svg?theme=shields.io)](https://david-dm.org/shipitjs/shipit#info=devDependencies)
-[![Inline docs](http://inch-ci.org/github/shipitjs/shipit.svg?branch=master)](http://inch-ci.org/github/shipitjs/shipit)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/taoyuan/shipr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/taoyuan/shipr.svg?branch=master)](https://travis-ci.org/taoyuan/shipr)
+[![Dependency Status](https://david-dm.org/taoyuan/shipr.svg?theme=shields.io)](https://david-dm.org/taoyuan/shipr)
+[![devDependency Status](https://david-dm.org/taoyuan/shipr/dev-status.svg?theme=shields.io)](https://david-dm.org/taoyuan/shipr#info=devDependencies)
+[![Inline docs](http://inch-ci.org/github/taoyuan/shipr.svg?branch=master)](http://inch-ci.org/github/taoyuan/shipr)
 
 ![Shipit logo](https://cloud.githubusercontent.com/assets/266302/3756454/81df9f46-182e-11e4-9da6-b2c7a6b84136.png)
+
+Shipr is forked from shipit, and can use all shipit plugins.
 
 Shipit is an automation engine and a deployment tool written for node / iojs.
 
@@ -28,13 +30,13 @@ the [Shipit deploy task](https://github.com/shipitjs/shipit-deploy-task).
 ### Globally
 
 ```
-npm install --global shipr-cli
+npm install --global shipr
 ```
 
 ### Locally
 
 ```
-npm install --save-dev shipr-cli
+npm install --save-dev shipr
 ```
 
 ## Getting Started
@@ -67,13 +69,13 @@ shipr staging pwd
 
 ## Deploy using Shipit
 
-You can easily deploy a project using Shipit and its plugin [shipr-deploy](https://github.com/shipitjs/shipit-deploy).
+You can easily deploy a project using Shipit and its plugin [shipit-deploy](https://github.com/shipitjs/shipit-deploy).
 
 ### Example `shiprfile.js`
 
 ```js
 module.exports = function (shipr) {
-  require('shipr-deploy')(shipr);
+  require('shipit-deploy')(shipr);
 
   shipr.initConfig({
     default: {
@@ -309,20 +311,20 @@ module.exports = function (shipr) {
 
 ### Official
 
-- [shipr-deploy](https://github.com/shipitjs/shipit-deploy)
+- [shipit-deploy](https://github.com/shipitjs/shipit-deploy)
 
 ### Third Party
 
-- [shipr-shared](https://github.com/timkelty/shipit-shared)
-- [shipr-db](https://github.com/timkelty/shipit-db)
-- [shipr-assets](https://github.com/timkelty/shipit-assets)
-- [shipr-ssh](https://github.com/timkelty/shipit-ssh)
-- [shipr-utils](https://github.com/timkelty/shipit-utils)
-- [shipr-npm](https://github.com/callerc1/shipit-npm)
-- [shipr-aws](https://github.com/KrashStudio/shipit-aws)
-- [shipr-captain](https://github.com/timkelty/shipit-captain/)
-- [shipr-bower](https://github.com/willsteinmetz/shipit-bower)
-- [shipr-composer](https://github.com/jeremyzahner/shipit-composer)
+- [shipit-shared](https://github.com/timkelty/shipit-shared)
+- [shipit-db](https://github.com/timkelty/shipit-db)
+- [shipit-assets](https://github.com/timkelty/shipit-assets)
+- [shipit-ssh](https://github.com/timkelty/shipit-ssh)
+- [shipit-utils](https://github.com/timkelty/shipit-utils)
+- [shipit-npm](https://github.com/callerc1/shipit-npm)
+- [shipit-aws](https://github.com/KrashStudio/shipit-aws)
+- [shipit-captain](https://github.com/timkelty/shipit-captain/)
+- [shipit-bower](https://github.com/willsteinmetz/shipit-bower)
+- [shipit-composer](https://github.com/jeremyzahner/shipit-composer)
 
 ## Who use Shipit?
 
