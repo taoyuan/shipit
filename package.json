@@ -1,6 +1,6 @@
 {
   "name": "shipr",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Universal automation and deployment tool written in JavaScript.",
   "main": "index.js",
   "engines": {
