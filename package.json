@@ -19,9 +19,11 @@
     "caporal": "^0.9.0",
     "chalk": "^2.3.0",
     "interpret": "^1.1.0",
+    "isobject": "^3.0.1",
     "liftoff": "^2.5.0",
     "lodash": "^4.17.4",
     "orchestrator": "^0.3.8",
+    "pad": "^2.0.3",
     "pretty-hrtime": "^1.0.3",
     "ssh-pool": "^1.5.0",
     "stream-line-wrapper": "^0.1.1",
@@ -38,7 +40,7 @@
     "sinon-chai": "^2.14.0"
   },
   "scripts": {
-    "test": "mocha && ./bin/shipr staging test"
+    "test": "mocha && ./bin/shipr -e staging test"
   },
   "bin": {
     "shipr": "./bin/shipr"

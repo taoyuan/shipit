@@ -7,9 +7,22 @@ module.exports = function (shipr) {
   });
 
   shipr.task('test', async function () {
-    const res = await shipr.local('echo "hello"');
+    let res = await shipr.local('echo "hello"');
     if (res.stdout !== 'hello\n') {
-      throw new Error('test not passing');
+      throw new Error('[local] test not passing');
+    }
+
+    res = await shipr.run({
+      name: 'Clone seciod repository',
+      command: `
+        echo "hello"
+      `,
+      local: true,
+      batch: true,
+      cwd: '/tmp'
+    });
+    if (res.stdout !== 'hello\n') {
+      throw new Error('[run|local] test not passing');
     }
   });
 

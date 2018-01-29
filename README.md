@@ -214,6 +214,12 @@ shipr.remote('ls -lah').then(function (res) {
 });
 ```
 
+#### shipr.run(command, [options])
+
+Run commands in seres.
+
+more usage: __TODO__
+
 #### shipr.remoteCopy(src, dest, [options], [callback])
 
 Make a remote copy from a local path to a dest path.
