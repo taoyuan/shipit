@@ -1,54 +1,54 @@
-var sinon = require('sinon');
-var expect = require('chai').use(require('sinon-chai')).expect;
-var stream = require('mock-utf8-stream');
-var ConnectionPool = require('ssh-pool').ConnectionPool;
-var Shipit = require('../lib/shipit');
+const sinon = require('sinon');
+const expect = require('chai').use(require('sinon-chai')).expect;
+const stream = require('mock-utf8-stream');
+const ConnectionPool = require('ssh-pool').ConnectionPool;
+const Shipit = require('../lib/shipr');
 
 describe('Shipit', function () {
-  var shipit, stdout, stderr;
+  let shipr, stdout, stderr;
 
   beforeEach(function () {
     stdout = new stream.MockWritableStream();
     stderr = new stream.MockWritableStream();
-    shipit = new Shipit({
+    shipr = new Shipit({
       stdout: stdout,
       stderr: stderr,
       environment: 'stage'
     });
-    shipit.stage = 'stage';
+    shipr.stage = 'stage';
   });
 
   describe('#initialize', function () {
     beforeEach(function () {
-      sinon.stub(shipit, 'initSshPool').returns(shipit);
+      sinon.stub(shipr, 'initSshPool').returns(shipr);
     });
 
     afterEach(function () {
-      shipit.initSshPool.restore();
+      shipr.initSshPool.restore();
     });
 
-    it('should add stage and initialize shipit', function () {
-      shipit.initialize();
-      expect(shipit.initSshPool).to.be.called;
+    it('should add stage and initialize shipr', function () {
+      shipr.initialize();
+      expect(shipr.initSshPool).to.be.called;
     });
   });
 
   describe('#initSshPool', function () {
     it('should initialize an ssh pool', function () {
-      shipit.config = {servers: ['deploy@my-server']};
-      shipit.initSshPool();
+      shipr.config = {servers: ['deploy@my-server']};
+      shipr.initSshPool();
 
-      expect(shipit.pool).to.be.instanceOf(ConnectionPool);
-      expect(shipit.pool).to.have.deep.property('.connections[0].remote.user', 'deploy');
-      expect(shipit.pool).to.have.deep.property('.connections[0].remote.host', 'my-server');
+      expect(shipr.pool).to.be.instanceOf(ConnectionPool);
+      expect(shipr.pool).to.have.nested.property('connections[0].remote.user', 'deploy');
+      expect(shipr.pool).to.have.nested.property('connections[0].remote.host', 'my-server');
     });
   });
 
   describe('#initConfig', function () {
     it('should initialize config', function () {
-      shipit.initConfig({default: {foo: 'bar', servers: ['1', '2']}, stage: {kung: 'foo', servers: ['3']}});
+      shipr.initConfig({default: {foo: 'bar', servers: ['1', '2']}, stage: {kung: 'foo', servers: ['3']}});
 
-      expect(shipit.config).to.be.deep.equal({
+      expect(shipr.config).to.be.deep.equal({
         branch: 'master',
         keepReleases: 5,
         foo: 'bar',
@@ -62,7 +62,7 @@ describe('Shipit', function () {
   describe('#local', function () {
     it('should wrap and log to stdout', function () {
       stdout.startCapture();
-      return shipit.local('echo "hello"').then(function (res) {
+      return shipr.local('echo "hello"').then(function (res) {
         expect(stdout.capturedData).to.equal('@ hello\n');
         expect(res).to.have.property('stdout');
         expect(res).to.have.property('stderr');
@@ -73,39 +73,39 @@ describe('Shipit', function () {
 
   describe('#remote', function () {
     beforeEach(function () {
-      shipit.pool = {run: sinon.stub()};
+      shipr.pool = {run: sinon.stub()};
     });
 
     it('should run command on pool', function () {
-      shipit.remote('my-command');
+      shipr.remote('my-command');
 
-      expect(shipit.pool.run).to.be.calledWith('my-command');
+      expect(shipr.pool.run).to.be.calledWith('my-command');
     });
 
     it('should cd and run command on pool', function () {
-      shipit.remote('my-command', {cwd: '/my-directory'});
+      shipr.remote('my-command', {cwd: '/my-directory'});
 
-      expect(shipit.pool.run).to.be.calledWith('cd "/my-directory" && my-command', {});
+      expect(shipr.pool.run).to.be.calledWith('cd "/my-directory" && my-command', {});
     });
   });
 
   describe('#remoteCopy', function () {
     beforeEach(function () {
-      shipit.pool = {copy: sinon.stub()};
+      shipr.pool = {copy: sinon.stub()};
     });
 
     it('should run command on pool', function () {
-      shipit.remoteCopy('src', 'dest');
+      shipr.remoteCopy('src', 'dest');
 
-      expect(shipit.pool.copy).to.be.calledWith('src', 'dest');
+      expect(shipr.pool.copy).to.be.calledWith('src', 'dest');
     });
 
-    it('should accept options for shipit.pool.copy', function () {
-      shipit.remoteCopy('src', 'dest', {
+    it('should accept options for shipr.pool.copy', function () {
+      shipr.remoteCopy('src', 'dest', {
         direction: 'remoteToLocal'
       });
 
-      expect(shipit.pool.copy).to.be.calledWith('src', 'dest', {
+      expect(shipr.pool.copy).to.be.calledWith('src', 'dest', {
         direction: 'remoteToLocal',
         ignores: [],
         rsync: []
@@ -113,16 +113,16 @@ describe('Shipit', function () {
     });
 
     it('should support options specified in config', function () {
-      shipit.config = {
+      shipr.config = {
         ignores: ['foo'],
         rsync: ['--bar']
       };
 
-      shipit.remoteCopy('src', 'dest', {
+      shipr.remoteCopy('src', 'dest', {
         direction: 'remoteToLocal'
       });
 
-      expect(shipit.pool.copy).to.be.calledWith('src', 'dest', {
+      expect(shipr.pool.copy).to.be.calledWith('src', 'dest', {
         direction: 'remoteToLocal',
         ignores: ['foo'],
         rsync: ['--bar']

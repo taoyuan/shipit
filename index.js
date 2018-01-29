@@ -1,1 +1,1 @@
-module.exports = require('./lib/shipit');
+module.exports = require('./lib/shipr');
